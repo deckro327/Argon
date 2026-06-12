@@ -28,7 +28,7 @@ class AreaController extends Controller
     {
         return view('area.show', compact('area'));
     }
-
+//? f en el chat
     public function edit (Area $area)
     {
         $attendance = Area::findOrFail($area);
