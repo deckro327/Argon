@@ -18,7 +18,7 @@
     @enderror
 
     <label for="age" class="form-label text-white">Edad</label>
-    <input name="age" id="age" class="form-label-control text-dark w-96" value="{{ old('age', $worker?->age) }}" type="number">
+    <input name="age" id="age" class="form-label-control text-dark w-96" value="{{ old('age', $worker?->age) }}" type="number" min="0" step="1" oninput="if(this.value<0) this.value = 0;">
     @error('age')
         <div class="text-danger text-red-400">{{ $message }}</div>
     @enderror

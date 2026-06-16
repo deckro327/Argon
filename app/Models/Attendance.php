@@ -14,6 +14,12 @@ class Attendance extends Model
         'punctuality',
         'departure',
     ];
+
+    protected $casts = [
+        'punctuality' => 'datetime',
+        'departure' => 'datetime',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

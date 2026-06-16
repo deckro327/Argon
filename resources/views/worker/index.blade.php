@@ -8,8 +8,8 @@
                 <div class="card shadow">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="mb-0">Workers</h3>
-                            <a href="{{ route('workers.create') }}" class="btn btn-primary btn-sm">Crear Worker</a>
+                            <h3 class="mb-0">Trabajadores</h3>
+                            <a href="{{ route('workers.create') }}" class="btn btn-primary btn-sm">Agregar Trabajador</a>
                         </div>
                     </div>
 
@@ -45,11 +45,7 @@
                                             <div style="display: flex; align-items: center; gap: 5px; flex-wrap: nowrap;">
                                                 <a class="btn btn-primary btn-sm" href="{{ route('workers.show', $worker->id) }}">Ver</a>
                                                 <a class="btn btn-info btn-sm" href="{{ route('workers.edit', $worker->id) }}">Editar</a>
-                                                <form action="{{ route('workers.destroy', $worker->id) }}" method="POST" style="display: inline-block; margin: 0;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este worker?')">Eliminar</button>
-                                                </form>
+                                                <a class="btn btn-danger btn-sm" href="{{ route('workers.delete', $worker->id) }}">Eliminar</a>
                                             </div>
                                         </td>
                                     </tr>

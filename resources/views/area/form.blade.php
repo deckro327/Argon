@@ -93,11 +93,11 @@
 </div>
 
 <hr class="my-4" />
-<h6 class="heading-small text-muted mb-4">Guardar</h6>
+<h6 class="heading-small text-muted mb-4">Actualizar Area</h6>
 <div class="pl-lg-4">
     <div class="form-group">
         <button type="submit" class="btn btn-primary">
-            <i class="fas fa-save"></i> Registrar
+            <i class="fas fa-save"></i> actualizar
         </button>
     </div>
 </div>

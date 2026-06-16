@@ -22,7 +22,7 @@ class AttendanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'worker_id' => ['required', 'integer', 'exists:students,id'],
+            'worker_id' => ['required', 'integer', 'exists:workers,id'],
             'status' => ['required', 'string', 'in:presente,justificado,ausente'],
             'punctuality' => [$this->input('status') === 'presente' ? 'required' : 'nullable', 'date_format:H:i'],
             'departure' => [$this->input('status') === 'presente' ? 'required' : 'nullable', 'date_format:H:i'],

@@ -11,7 +11,7 @@
                             <span id="card_title">Historial de asistencia</span>
                             <div class="float-right">
                                 <a href="{{ route('attendances.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                                    Create New
+                                    Crear nueva asistencia
                                 </a>
                             </div>
                         </div>
@@ -28,12 +28,12 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Worker</th>
+                                        <th>Trabajador</th>
                                         <th>Area</th>
                                         <th>Horario del área</th>
-                                        <th>Status</th>
-                                        <th>Punctuality</th>
-                                        <th>Departure</th>
+                                        <th>Estado</th>
+                                        <th>Hora de entrada</th>
+                                        <th>Hora de salida</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -51,19 +51,15 @@
                                             <td>{{ $attendance->punctuality }}</td>
                                             <td>{{ $attendance->departure }}</td>
                                             <td>
-                                                <form action="{{ route('attendances.destroy', $attendance->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('attendances.show', $attendance->id) }}">
-                                                        <i class="fa fa-fw fa-eye"></i> Show
-                                                    </a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('attendances.edit', $attendance->id) }}">
-                                                        <i class="fa fa-fw fa-edit"></i> Edit
-                                                    </a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-fw fa-trash"></i> Delete
-                                                    </button>
-                                                </form>
+                                                <a class="btn btn-sm btn-primary" href="{{ route('attendances.show', $attendance->id) }}">
+                                                    <i class="fa fa-fw fa-eye"></i> Ver
+                                                </a>
+                                                <a class="btn btn-sm btn-success" href="{{ route('attendances.edit', $attendance->id) }}">
+                                                    <i class="fa fa-fw fa-edit"></i> Editar
+                                                </a>
+                                                <a class="btn btn-sm btn-danger" href="{{ route('attendances.delete', $attendance->id) }}">
+                                                    <i class="fa fa-fw fa-trash"></i> Borrar
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

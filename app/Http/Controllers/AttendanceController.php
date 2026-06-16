@@ -45,6 +45,13 @@ class AttendanceController extends Controller
         return view('attendance.show', compact('attendance'));
     }
 
+    public function delete(Attendance $attendance)
+    {
+        $attendance->load('worker.area');
+
+        return view('attendance.delete', compact('attendance'));
+    }
+
     public function edit(Attendance $attendance)
     {
         return view('attendance.edit', $this->attendanceFormData($attendance));

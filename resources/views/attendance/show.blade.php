@@ -14,10 +14,15 @@
             <div class="card-header bg-white border-0">
                 <div class="row align-items-center">
                     <div class="col-8">
-                        <h3 class="mb-0"><i class="fas fa-newspaper"></i> Ver asistencia</h3>
+                        <h3 class="mb-0"></i> Asistencia</h3>
                     </div>
                     <div class="col-4 text-right">
                         <a href="{{ route('attendances.index') }}" class="btn btn-sm btn-primary"><i class="fas fa-list"></i> Volver</a>
+                        <form action="{{ route('attendances.destroy', $attendance->id) }}" method="POST" class="d-inline-block ml-2" onsubmit="return confirm('¿Estás seguro de eliminar esta asistencia?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Borrar</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -45,17 +50,17 @@
 
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Horario del área - Entrada</label>
-                                <p>{{ $areaPunctuality ? $areaPunctuality->format('h:i') : '-' }} {{ $areaPunctuality ? $areaPunctuality->format('A') : '' }}</p>
+                                <div class="form-group">
+                                    <label class="form-control-label">Hora de entrada del área</label>
+                                    <p>{{ $areaPunctuality ? $areaPunctuality->format('h:i') : '-' }} {{ $areaPunctuality ? $areaPunctuality->format('A') : '' }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Horario del área - Salida</label>
-                                <p>{{ $areaDeparture ? $areaDeparture->format('h:i') : '-' }} {{ $areaDeparture ? $areaDeparture->format('A') : '' }}</p>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Hora de salida del área</label>
+                                    <p>{{ $areaDeparture ? $areaDeparture->format('h:i') : '-' }} {{ $areaDeparture ? $areaDeparture->format('A') : '' }}</p>
+                                </div>
                             </div>
-                        </div>
                     </div>
 
                     <div class="row">
@@ -76,13 +81,13 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label">Entrada</label>
+                                <label class="form-control-label">Hora de entrada</label>
                                 <p>{{ $attendancePunctuality ? $attendancePunctuality->format('h:i') : '-' }} {{ $attendancePunctuality ? $attendancePunctuality->format('A') : '' }}</p>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label">Salida</label>
+                                <label class="form-control-label">Hora de salida</label>
                                 <p>{{ $attendanceDeparture ? $attendanceDeparture->format('h:i') : '-' }} {{ $attendanceDeparture ? $attendanceDeparture->format('A') : '' }}</p>
                             </div>
                         </div>

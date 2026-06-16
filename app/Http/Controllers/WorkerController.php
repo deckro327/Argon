@@ -42,6 +42,13 @@ public function index(Request $request)
 
         return view('worker.show', compact('worker'));
     }
+
+    public function delete(Worker $worker)
+    {
+        $worker->load('area');
+
+        return view('worker.delete', compact('worker'));
+    }
     public function edit (Worker $worker)
     {
         $areas = Area::all()->sortBy('name');

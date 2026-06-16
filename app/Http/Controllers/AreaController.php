@@ -37,6 +37,13 @@ class AreaController extends Controller
         return view('area.show', compact('area'));
     }
 
+    public function delete(Area $area)
+    {
+        $area->load('workers');
+
+        return view('area.delete', compact('area'));
+    }
+
     public function edit(Area $area)
     {
         return view('area.edit', compact('area'));

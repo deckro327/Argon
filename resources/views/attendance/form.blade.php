@@ -30,7 +30,7 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
         <div class="form-group mb-2 mb20">
-            <label for="worker_search" class="form-label">Worker</label>
+            <label for="worker_search" class="form-label">Trabajador</label>
             <div class="d-flex gap-2 align-items-center">
                 <input
                     type="text"
@@ -51,39 +51,39 @@
                     <option value="{{ $worker->id }}">{{ $worker->id }} - {{ $worker->name }} {{ $worker->surname }}</option>
                 @endforeach
             </datalist>
-            <small class="form-text text-muted">Busca por ID y selecciona el worker correcto.</small>
+            <small class="form-text text-muted">Busca por ID y selecciona el Trabajador correcto.</small>
             {!! $errors->first('worker_id', '<div class="invalid-feedback d-block" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="worker_name" class="form-label">Worker seleccionado</label>
+            <label for="worker_name" class="form-label">Trabajador seleccionado</label>
             <input type="text" id="worker_name" class="form-control" value="{{ $selectedWorkerLabel }}" readonly>
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="worker_area" class="form-label">Area</label>
+            <label for="worker_area" class="form-label">Área</label>
             <input type="text" id="worker_area" class="form-control" value="{{ $areaNameValue }}" readonly>
         </div>
 
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group mb-2 mb20">
-                    <label for="worker_area_punctuality" class="form-label">Punctuality del area</label>
+                    <label for="worker_area_punctuality" class="form-label">Hora de entrada del área</label>
                     <input type="text" id="worker_area_punctuality" class="form-control" value="{{ $areaPunctualityValue }}" readonly>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group mb-2 mb20">
-                    <label for="worker_area_departure" class="form-label">Departure del area</label>
+                    <label for="worker_area_departure" class="form-label">Hora de salida del área</label>
                     <input type="text" id="worker_area_departure" class="form-control" value="{{ $areaDepartureValue }}" readonly>
                 </div>
             </div>
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="status" class="form-label">Status</label>
+            <label for="status" class="form-label">Estado</label>
             <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
-                <option value="">Selecciona un status</option>
+                <option value="">Selecciona un estado</option>
                 @foreach ($statuses as $value => $label)
                     <option value="{{ $value }}" @selected($selectedStatus === $value)>
                         {{ $label }}
@@ -96,7 +96,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group mb-2 mb20">
-                    <label class="form-label" for="punctuality_hour">Punctuality</label>
+                    <label class="form-label" for="punctuality_hour">Hora de entrada</label>
                     <input type="hidden" name="punctuality" id="punctuality" value="{{ old('punctuality', $attendance?->punctuality ? \Illuminate\Support\Carbon::parse($attendance?->punctuality)->format('H:i') : '') }}">
                     <div class="d-flex gap-2 flex-wrap">
                         <select id="punctuality_hour" class="form-control @error('punctuality') is-invalid @enderror" style="max-width: 110px;" @disabled($selectedStatus !== 'presente')>
@@ -115,13 +115,13 @@
                             <option value="PM" {{ $attendancePunctualityTime['meridiem'] === 'PM' ? 'selected' : '' }}>PM</option>
                         </select>
                     </div>
-                    <small class="text-muted">Formato de captura: hora, minutos y AM/PM.</small>
+                    <small class="text-muted">Formato: hora, minutos y AM/PM.</small>
                     {!! $errors->first('punctuality', '<div class="invalid-feedback d-block" role="alert"><strong>:message</strong></div>') !!}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group mb-2 mb20">
-                    <label class="form-label" for="departure_hour">Departure</label>
+                    <label class="form-label" for="departure_hour">Hora de salida</label>
                     <input type="hidden" name="departure" id="departure" value="{{ old('departure', $attendance?->departure ? \Illuminate\Support\Carbon::parse($attendance?->departure)->format('H:i') : '') }}">
                     <div class="d-flex gap-2 flex-wrap">
                         <select id="departure_hour" class="form-control @error('departure') is-invalid @enderror" style="max-width: 110px;" @disabled($selectedStatus !== 'presente')>
@@ -140,7 +140,7 @@
                             <option value="PM" {{ $attendanceDepartureTime['meridiem'] === 'PM' ? 'selected' : '' }}>PM</option>
                         </select>
                     </div>
-                    <small class="text-muted">Formato de captura: hora, minutos y AM/PM.</small>
+                    <small class="text-muted">Formato: hora, minutos y AM/PM.</small>
                     {!! $errors->first('departure', '<div class="invalid-feedback d-block" role="alert"><strong>:message</strong></div>') !!}
                 </div>
             </div>
@@ -148,7 +148,7 @@
     </div>
 
     <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="submit" class="btn btn-primary">{{ $attendance?->id ? 'Actualizar' : 'Guardar' }}</button>
     </div>
 </div>
 

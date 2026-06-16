@@ -8,7 +8,14 @@
                 <div class="card shadow">
                     <div class="card-header border-0 d-flex justify-content-between align-items-center">
                         <span class="card-title mb-0">Ver Worker</span>
-                        <a class="btn btn-primary btn-sm" href="{{ route('workers.index') }}">Volver</a>
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-primary btn-sm" href="{{ route('workers.index') }}">Volver</a>
+                            <form action="{{ route('workers.destroy', $worker->id) }}" method="POST" class="m-0" onsubmit="return confirm('¿Seguro que deseas eliminar este worker?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </div>
                     </div>
 
                     <div class="card-body bg-white">

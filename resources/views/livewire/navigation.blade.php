@@ -54,13 +54,24 @@
     <!-- Divider -->
     <hr class="my-3">
     <!-- Heading -->
-    <h6 class="navbar-heading text-muted">Módulos</h6>
+    <h6 class="navbar-heading text-muted">Panel de administración</h6>
     <!-- Navigation -->
+
+
     <ul class="navbar-nav mb-md-3">
         <li class="nav-item {{ Request::route()->named('areas.index') ? 'active' : '' }}">
             <a class="nav-link {{ Request::route()->named('areas.index') ? 'active' : '' }}"
                 href="{{ route('areas.index') }}" wire:navigate>
-                <i class="fas fa-map-marker-alt text-red"></i> Areas
+                <i class="fas fa-building text-blue"></i> Areas
+            </a>
+        </li>
+
+                </li>
+
+        <li class="nav-item {{ Request::route()->named('workers.index') ? 'active' : '' }}">
+            <a class="nav-link {{ Request::route()->named('workers.index') ? 'active' : '' }}"
+                href="{{ route('workers.index') }}" wire:navigate>
+                <i class="fas fa-users text-blue"></i> Trabajadores
             </a>
         </li>
 
@@ -69,13 +80,6 @@
                 href="{{ route('attendances.index') }}" wire:navigate>
                 <i class="fas fa-clipboard-check text-blue"></i> Asistencia
             </a>
-        </li>
 
-        <li class="nav-item {{ Request::route()->named('workers.index') ? 'active' : '' }}">
-            <a class="nav-link {{ Request::route()->named('workers.index') ? 'active' : '' }}"
-                href="{{ route('workers.index') }}" wire:navigate>
-                <i class="fas fa-users text-orange"></i> Trabajadores
-            </a>
-        </li>
     </ul>
 </div>

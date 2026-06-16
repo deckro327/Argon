@@ -98,6 +98,7 @@ Route::get('/attendances/create', [AttendanceController :: class,'create'])->nam
 Route::post('/attendances', [AttendanceController :: class, 'store'])->name('attendances.store');
 
 Route::get ('/attendances/{attendance}', [AttendanceController :: class, 'show'])->name('attendances.show');
+    Route::get('/attendances/{attendance}/delete', [AttendanceController::class, 'delete'])->name('attendances.delete');
 
 Route::get('/attendances/{attendance}/edit', [AttendanceController :: class, 'edit'])->name('attendances.edit');
 
@@ -117,6 +118,7 @@ Route::get('/areas/create', [AreaController :: class,'create'])->name('areas.cre
 Route::post('/areas', [AreaController :: class, 'store'])->name('areas.store');
 
 Route::get ('/areas/{area}', [AreaController :: class, 'show'])->name('areas.show');
+    Route::get('/areas/{area}/delete', [AreaController::class, 'delete'])->name('areas.delete');
 
 Route::get('/areas/{area}/edit', [AreaController :: class, 'edit'])->name('areas.edit');
 
@@ -194,6 +196,8 @@ Route::post('/workers', [WorkerController :: class, 'store'])->name('workers.sto
 Route::get('/workers/{worker}', [WorkerController::class, 'show'])->name('workers.show');
 
 Route::get('/workers/{worker}/edit', [WorkerController::class, 'edit'])->name('workers.edit');
+
+Route::get('/workers/{worker}/delete', [WorkerController::class, 'delete'])->name('workers.delete');
 
 Route::put('/workers/{worker}', [WorkerController::class, 'update'])->name('workers.update');
 
