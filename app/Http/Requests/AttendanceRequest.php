@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class AttendanceRequest extends FormRequest
 {
@@ -23,8 +22,10 @@ class AttendanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => ['required|date', Rule::unique('attendances')->ignore($this->attendance)],
-            'quantity'=>['required|integer|min:1']
+            'worker_id' => ['required', 'integer', 'exists:students,id'],
+            'status' => ['required', 'string', 'in:presente,justificado,ausente'],
+            'punctuality' => [$this->input('status') === 'presente' ? 'required' : 'nullable', 'date_format:H:i'],
+            'departure' => [$this->input('status') === 'presente' ? 'required' : 'nullable', 'date_format:H:i'],
         ];
     }
 }

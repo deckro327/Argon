@@ -40,8 +40,8 @@ class Report extends Model
         return $this->belongsTo(Absence::class);
     }
 
-    // public function user(): HasMany
-    // {
-    //     return $this->hasMany(User::class);
-    // }
+    public function Workers(): BelongsTo
+    {
+        return $this->belongsTo(Worker::class);
+    }
 }

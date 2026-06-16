@@ -1,51 +1,58 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
 use App\Http\Requests\AreaRequest;
 use App\Models\Area;
+use Illuminate\Http\Request;
 
 class AreaController extends Controller
 {
     public function index(Request $request)
     {
-        return view('area.index');
+        $areas = Area::query()->paginate(10);
+
+        return view('area.index', compact('areas'))
+            ->with('i', (request()->input('page', 1) - 1) * $areas->perPage());
     }
 
-    public function create (AreaController $request)
+    public function create()
     {
-    $attendance = new Area();
-    return view('area.create', compact('area'));
+        $area = new Area();
+
+        return view('area.create', compact('area'));
     }
 
     public function store(AreaRequest $request)
     {
-    Area::create($request->validated());
-    return redirect('/area')->with('success', 'area confirmada');
+        Area::create($request->validated());
+
+        return redirect()->route('areas.index')->with('success', 'Area confirmada');
     }
 
-    public function show (Area $area)
+    public function show(Area $area)
     {
+        $area->load('workers');
+
         return view('area.show', compact('area'));
     }
-//? f en el chat
-    public function edit (Area $area)
+
+    public function edit(Area $area)
     {
-        $attendance = Area::findOrFail($area);
         return view('area.edit', compact('area'));
     }
 
-    public function update(AreaRequest $request, string $id)
+    public function update(AreaRequest $request, Area $area)
     {
-        $area = Area::findOrFail($id);
         $area->update($request->validated());
-        return redirect('area.index')->with('success', 'Area acutalizada');
+
+        return redirect()->route('areas.index')->with('success', 'Area actualizada');
     }
 
-    public function destroy(string $id)
+    public function destroy(Area $area)
     {
-        $area = Area::findOrFail($id);
-        $area->delete();
-        return redirect('area.index')->with('success','Area eliminada');
+        Area::destroy($area->id);
+
+        return redirect()->route('areas.index')->with('success', 'Area eliminada');
     }
 }

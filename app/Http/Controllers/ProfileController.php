@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -35,6 +37,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        /** @var User $user */
         $user = $request->user();
         $user->fill($request->validated());
 
@@ -43,15 +46,25 @@ class ProfileController extends Controller
         }
 
         if ($request->hasFile('profile_image')) {
-            // Eliminar la imagen anterior si existe
             if ($user->profile_image) {
-                Storage::disk('public')->delete('profiles_images/' . $user->profile_image);
+                if (str_starts_with($user->profile_image, 'img/')) {
+                    File::delete(public_path($user->profile_image));
+                } else {
+                    Storage::disk('public')->delete($user->profile_image);
+                }
             }
 
             $file = $request->file('profile_image');
-            // El borrar solo funciona si las imagenes se llaman exactamente igual
-            $imageName = Str::slug($user->name, '-') . '-' . $user->id . '.jpg';
-            $user->profile_image = $file->storeAs('profile_images', $imageName, 'public');
+            $extension = $file->getClientOriginalExtension() ?: 'jpg';
+            $fileName = $user->id . '-' . time() . '.' . $extension;
+            $directory = public_path('img/profile_images');
+
+            if (!is_dir($directory)) {
+                mkdir($directory, 0755, true);
+            }
+
+            $file->move($directory, $fileName);
+            $user->profile_image = 'img/profile_images/' . $fileName;
         }
         
         $user->save();
@@ -67,11 +80,12 @@ class ProfileController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
+        /** @var User $user */
         $user = $request->user();
 
         Auth::logout();
 
-        $user->delete();
+        DB::table('users')->where('id', $user->id)->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

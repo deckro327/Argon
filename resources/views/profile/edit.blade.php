@@ -21,6 +21,16 @@
                     <h6 class="heading-small text-muted mb-4">Información del Usuario</h6>
                     <div class="pl-lg-4">
                         <div class="row">
+                            <div class="col-lg-12 mb-4">
+                                <div class="d-flex align-items-center">
+                                    <img id="profile-image-preview" src="{{ $user->image() }}" alt="Imagen de perfil"
+                                        class="rounded-circle shadow" style="width: 96px; height: 96px; object-fit: cover;">
+                                    <div class="ml-3">
+                                        <small class="text-muted d-block">Vista previa de la imagen de perfil</small>
+                                        <small class="text-muted">Al elegir una nueva imagen, se mostrará aquí y se guardará al actualizar.</small>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="username">Nombre</label>
@@ -42,7 +52,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-profile-image">Imagen</label>
                                     <input type="file" name="profile_image" id="input-profile-image"
-                                        class="form-control form-control-alternative" placeholder="Imagen">
+                                        class="form-control form-control-alternative" placeholder="Imagen" accept="image/*">
                                 </div>
                             </div>
                         </div>
@@ -98,3 +108,32 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var input = document.getElementById('input-profile-image');
+            var preview = document.getElementById('profile-image-preview');
+
+            if (!input || !preview) {
+                return;
+            }
+
+            input.addEventListener('change', function () {
+                var file = this.files && this.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+                var reader = new FileReader();
+
+                reader.onload = function (event) {
+                    preview.src = event.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
+@endpush

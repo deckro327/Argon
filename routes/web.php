@@ -3,20 +3,23 @@
 use App\Http\Controllers\Example\AnimalController;
 use App\Http\Controllers\Example\CategoryController;
 use App\Http\Controllers\Example\PostController;
-use App\Http\Controllers\Example\ProductController;
-use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CarrerController;
 use App\Http\Controllers\ProfileController;
-use App\Livewire\Products\ProductList;
+use App\Http\Controllers\AbsenceController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AreaController;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\CertificateaofabsenceController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 
@@ -25,14 +28,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/update', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    });
-
-    //rutas de ejemplo sin controlador con prefijo
-    Route::prefix('/ejemplo')->group(function () {
-        Route::get('/index', fn() => view('examples.ejemplo.index'))->name('ejemplo.index');
-        Route::get('/create', fn() => view('examples.ejemplo.create'))->name('ejemplo.create');
-        Route::get('/edit', fn() => view('examples.ejemplo.edit'))->name('ejemplo.edit');
-        Route::get('/show', fn() => view('examples.ejemplo.show'))->name('ejemplo.show');
     });
 
     //rutas con controlador y prefix
@@ -67,11 +62,144 @@ Route::middleware('auth')->group(function () {
     });
 
     //rutas de posts de tipo resource
-    Route::resource('/students', StudentController::class);
+    // Route::resource('/students', StudentController::class);
     Route::resource('/carrers', CarrerController::class);
 
-    // Route::resource('/categories', CategoryController::class);
-    // Route::resource('/animals', AnimalController::class);
+    Route::resource('/categories', CategoryController::class);
+    Route::resource('/animals', AnimalController::class);
 });
+
+//? absences
+Route::middleware('auth')->group(function () {
+
+Route:: get('/absences', [AbsenceController::class, 'index'])->name('absence.index');
+
+Route::get('/absences/create', [AbsenceController :: class,'create'])->name('absence.create');
+
+Route::post('/absences', [AbsenceController :: class, 'store'])->name('absence.store');
+
+Route::get ('/absences/{absence}', [AbsenceController :: class, 'show'])->name('absence.show');
+
+Route::get('/absences/{absence}/edit', [AbsenceController :: class, 'edit'])->name('absence.edit');
+
+Route :: put('/absences/{absence}', [AbsenceController :: class, 'update'])->name('absence.update');
+
+Route :: delete('/absences/{absence}',[AbsenceController :: class, 'destroy'])->name('absence.destroy');
+});
+
+//? attendances
+
+Route::middleware('auth')->group(function () {
+
+Route:: get('/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
+
+Route::get('/attendances/create', [AttendanceController :: class,'create'])->name('attendances.create');
+
+Route::post('/attendances', [AttendanceController :: class, 'store'])->name('attendances.store');
+
+Route::get ('/attendances/{attendance}', [AttendanceController :: class, 'show'])->name('attendances.show');
+
+Route::get('/attendances/{attendance}/edit', [AttendanceController :: class, 'edit'])->name('attendances.edit');
+
+Route :: put('/attendances/{attendance}', [AttendanceController :: class, 'update'])->name('attendances.update');
+
+Route :: delete('/attendances/{attendance}',[AttendanceController :: class, 'destroy'])->name('attendances.destroy');
+});
+
+//?areas
+
+Route::middleware('auth')->group(function () {
+
+Route:: get('/areas', [AreaController::class, 'index'])->name('areas.index');
+
+Route::get('/areas/create', [AreaController :: class,'create'])->name('areas.create');
+
+Route::post('/areas', [AreaController :: class, 'store'])->name('areas.store');
+
+Route::get ('/areas/{area}', [AreaController :: class, 'show'])->name('areas.show');
+
+Route::get('/areas/{area}/edit', [AreaController :: class, 'edit'])->name('areas.edit');
+
+Route :: put('/areas/{area}', [AreaController :: class, 'update'])->name('areas.update');
+
+Route :: delete('/areas/{area}',[AreaController :: class, 'destroy'])->name('areas.destroy');
+});
+
+//? schedules
+
+Route::middleware('auth')->group(function () {
+
+Route:: get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+
+Route::get('/schedules/create', [ScheduleController :: class,'create'])->name('schedules.create');
+
+Route::post('/schedules', [ScheduleController :: class, 'store'])->name('schedules.store');
+
+Route::get ('/schedules/{schedule}', [ScheduleController :: class, 'show'])->name('schedules.show');
+
+Route::get('/schedules/{schedule}/edit', [ScheduleController :: class, 'edit'])->name('schedules.edit');
+
+Route :: put('/schedules/{schedule}', [ScheduleController :: class, 'update'])->name('schedules.update');
+
+Route :: delete('/schedules/{schedule}',[ScheduleController :: class, 'destroy'])->name('schedules.destroy');
+});
+
+//?certificateaofabsences
+
+Route::middleware('auth')->group(function () {
+
+Route:: get('/certificateaofabsences', [CertificateaofabsenceController::class, 'index'])->name('certificateaofabsences.index');
+
+Route::get('/certificateaofabsences/create', [CertificateaofabsenceController :: class,'create'])->name('certificateaofabsences.create');
+
+Route::post('/certificateaofabsences', [CertificateaofabsenceController :: class, 'store'])->name('certificateaofabsences.store');
+
+Route::get ('/certificateaofabsences/{certificateaofabsence}', [CertificateaofabsenceController :: class, 'show'])->name('certificateaofabsences.show');
+
+Route::get('/certificateaofabsences/{certificateaofabsence}/edit', [CertificateaofabsenceController :: class, 'edit'])->name('certificateaofabsences.edit');
+
+Route :: put('/certificateaofabsences/{certificateaofabsence}', [CertificateaofabsenceController :: class, 'update'])->name('certificateaofabsences.update');
+
+Route :: delete('/certificateaofabsences/{certificateaofabsence}',[CertificateaofabsenceController :: class, 'destroy'])->name('certificateaofabsences.destroy');
+});
+
+//?reports
+
+Route::middleware('auth')->group(function () {
+
+Route:: get('/reports', [ReportController::class, 'index'])->name('reports.index');
+
+Route::get('/reports/create', [ReportController :: class,'create'])->name('reports.create');
+
+Route::post('/reports', [ReportController :: class, 'store'])->name('reports.store');
+
+Route::get ('/reports/{report}', [ReportController :: class, 'show'])->name('reports.show');
+
+Route::get('/reports/{report}/edit', [ReportController :: class, 'edit'])->name('reports.edit');
+
+Route :: put('/reports/{report}', [ReportController :: class, 'update'])->name('reports.update');
+
+Route :: delete('/reports/{report}',[ReportController :: class, 'destroy'])->name('reports.destroy');
+});
+
+
+Route::middleware('auth')->group(function () {
+
+Route::get('/workers', [WorkerController::class, 'index'])->name('workers.index');
+
+Route::get('/workers/create', [WorkerController::class, 'create'])->name('workers.create');
+
+Route::post('/workers', [WorkerController :: class, 'store'])->name('workers.store');
+
+Route::get('/workers/{worker}', [WorkerController::class, 'show'])->name('workers.show');
+
+Route::get('/workers/{worker}/edit', [WorkerController::class, 'edit'])->name('workers.edit');
+
+Route::put('/workers/{worker}', [WorkerController::class, 'update'])->name('workers.update');
+
+Route::delete('/workers/{worker}', [WorkerController::class, 'destroy'])->name('workers.destroy');
+});
+//?
+
 
 require __DIR__ . '/auth.php';

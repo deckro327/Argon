@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrer;
+use App\Models\Worker;
 use App\Models\Student;
 use App\Http\Requests\CarrerRequest;
 
@@ -17,7 +18,7 @@ class CarrerController extends Controller
      */
     public function index()
     {
-        $carrers = Carrer::paginate();
+        $carrers = Carrer::query()->paginate();
 
         return view('carrer.index', compact('carrers'))
             ->with('i', (request()->input('page', 1) - 1) * $carrers->perPage());
@@ -29,7 +30,7 @@ class CarrerController extends Controller
     public function create()
     {
         $carrer = new Carrer();
-        $students = Student::orderBy('name')->get();
+        $students = Worker::all()->sortBy('name');
         return view('carrer.create', compact('carrer', 'students'));
     }
 
@@ -49,7 +50,7 @@ class CarrerController extends Controller
      */
     public function show(string $id)
     {
-        $carrer = Carrer::find($id);
+        $carrer = Carrer::query()->find($id);
 
         return view('carrer.show', compact('carrer'));
     }
@@ -59,9 +60,9 @@ class CarrerController extends Controller
      */
     public function edit(string $id)
     {
-        $carrer = Carrer::find($id);
+        $carrer = Carrer::query()->find($id);
 
-        $students = Student::orderBy('name')->get();
+        $students = Worker::all()->sortBy('name');
         return view('carrer.edit', compact('carrer', 'students'));
     }
 
@@ -78,7 +79,7 @@ class CarrerController extends Controller
 
     public function destroy($id)
     {
-        Carrer::find($id)->delete();
+        Carrer::destroy($id);
 
         return redirect()->route('carrers.index')
             ->with('success', 'Carrer deleted successfully');

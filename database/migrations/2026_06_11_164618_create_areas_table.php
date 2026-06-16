@@ -13,8 +13,16 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name', 100);
             $table->text('description');
+            $table->time('punctuality')->nullable();
+            $table->time('departure')->nullable();
             $table->timestamps();
         });
+
+        if (! Schema::hasColumn('students', 'area_id')) {
+            Schema::table('students', function (Blueprint $table) {
+                $table->foreignId('area_id')->nullable()->after('age')->constrained('areas')->nullOnDelete();
+            });
+        }
     }
 
     /**

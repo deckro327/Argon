@@ -1,5 +1,5 @@
 @extends('layouts.panel')
-@section('title', 'Attendance/Index')
+@section('title', 'Worker/Index')
 
 @section('content')
     <div class="container-fluid">
@@ -8,9 +8,13 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span id="card_title">Historial de asistencia</span>
+
+                            <span id="card_title">
+                                Workers
+                            </span>
+
                             <div class="float-right">
-                                <a href="{{ route('attendances.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
+                                <a href="{{ route('workers.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
                                     Create New
                                 </a>
                             </div>
@@ -28,34 +32,30 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Worker</th>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Email</th>
+                                        <th>Age</th>
                                         <th>Area</th>
-                                        <th>Horario del área</th>
-                                        <th>Status</th>
-                                        <th>Punctuality</th>
-                                        <th>Departure</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($attendances as $attendance)
+                                    @foreach ($workers as $worker)
                                         <tr>
-                                            <td>{{ $attendance->id }}</td>
-                                            <td>{{ $attendance->worker_id }} - {{ $attendance->worker?->name }} {{ $attendance->worker?->surname }}</td>
-                                            <td>{{ $attendance->worker?->area?->name ?? 'Sin área' }}</td>
+                                            <td>{{ $worker->id }}</td>
+                                            <td>{{ $worker->name }}</td>
+                                            <td>{{ $worker->surname }}</td>
+                                            <td>{{ $worker->email }}</td>
+                                            <td>{{ $worker->age }}</td>
+                                            <td>{{ $worker->area?->name }}</td>
+
                                             <td>
-                                                <div>Entrada: {{ $attendance->worker?->area?->punctuality ? \Illuminate\Support\Carbon::parse($attendance->worker?->area?->punctuality)->format('h:i A') : '-' }}</div>
-                                                <div>Salida: {{ $attendance->worker?->area?->departure ? \Illuminate\Support\Carbon::parse($attendance->worker?->area?->departure)->format('h:i A') : '-' }}</div>
-                                            </td>
-                                            <td>{{ $attendance->status_label }}</td>
-                                            <td>{{ $attendance->punctuality }}</td>
-                                            <td>{{ $attendance->departure }}</td>
-                                            <td>
-                                                <form action="{{ route('attendances.destroy', $attendance->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('attendances.show', $attendance->id) }}">
+                                                <form action="{{ route('workers.destroy', $worker->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary" href="{{ route('workers.show', $worker->id) }}">
                                                         <i class="fa fa-fw fa-eye"></i> Show
                                                     </a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('attendances.edit', $attendance->id) }}">
+                                                    <a class="btn btn-sm btn-success" href="{{ route('workers.edit', $worker->id) }}">
                                                         <i class="fa fa-fw fa-edit"></i> Edit
                                                     </a>
                                                     @csrf
@@ -70,7 +70,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{ $attendances->links() }}
                     </div>
                 </div>
             </div>

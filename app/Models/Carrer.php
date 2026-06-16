@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 
+
 class Carrer extends Model
 {
 
@@ -14,9 +15,9 @@ class Carrer extends Model
     protected $fillable = ['name', 'code', 'students_id'];
 
 
-    public function student()
+    public function worker()
     {
-        return $this->belongsTo(\App\Models\Student::class, 'students_id', 'id');
+        return $this->belongsTo(Worker::class, 'students_id', 'id');
     }
 
 

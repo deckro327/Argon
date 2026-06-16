@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class DetailRequest extends FormRequest
+class WorkerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,12 @@ class DetailRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'quantity'=>['required|integer|min:0', Rule::unique('details')->ignore($this->detail)],
-            'date,hour'=>['required|datetime'],
-            'details'=>['required|text|min:50']
+            'name' => ['required', 'string', Rule::unique('students')->ignore($this->worker)],
+            'surname' => ['required', 'string', 'max:100', 'min:2'],
+            'email' => ['required', 'string', 'email', 'max:100'],
+            'age' => ['required', 'integer'],
+            'area_id' => ['required', 'exists:areas,id'],
         ];
     }
 }
+

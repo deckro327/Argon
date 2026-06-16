@@ -34,7 +34,7 @@
             </button>
             <!-- Brand -->
             <a class="navbar-brand pt-0" href="#">
-                <img src="{{ asset('img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
+                <img src="{{ asset('img/brand/scandal-logo-png_seeklogo-526703.png') }}" class="navbar-brand-img" alt="SCANDAL">
             </a>
             <!-- User -->
             @include('includes.mobile_menu')
@@ -94,8 +94,8 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">Dato 1</h5>
-                                                    <span class="h2 font-weight-bold mb-0">Ejemplo</span>
+                                                    <h5 class="card-title text-uppercase text-muted mb-0">Horas trabajadas</h5>
+                                                    <span class="h2 font-weight-bold mb-0">{{ number_format($hoursWorked ?? 0, 2) }} h</span>
                                                 </div>
                                                 <div class="col-auto">
                                                     <div
@@ -112,8 +112,8 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">Dato 2</h5>
-                                                    <span class="h2 font-weight-bold mb-0">Ejemplo</span>
+                                                    <h5 class="card-title text-uppercase text-muted mb-0">Asistencias</h5>
+                                                    <span class="h2 font-weight-bold mb-0">{{ $attendanceCount ?? 0 }}</span>
                                                 </div>
                                                 <div class="col-auto">
                                                     <div
@@ -130,8 +130,8 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">Dato 3</h5>
-                                                    <span class="h2 font-weight-bold mb-0">Ejemplo</span>
+                                                    <h5 class="card-title text-uppercase text-muted mb-0">Faltas</h5>
+                                                    <span class="h2 font-weight-bold mb-0">{{ $absenceCount ?? 0 }}</span>
                                                 </div>
                                                 <div class="col-auto">
                                                     <div
@@ -148,8 +148,8 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <h5 class="card-title text-uppercase text-muted mb-0">Dato 4</h5>
-                                                    <span class="h2 font-weight-bold mb-0">Ejemplo</span>
+                                                    <h5 class="card-title text-uppercase text-muted mb-0">Empleados</h5>
+                                                    <span class="h2 font-weight-bold mb-0">{{ $workersCount ?? 0 }}</span>
                                                 </div>
                                                 <div class="col-auto">
                                                     <div
@@ -214,6 +214,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     @include('components.alerts') <!-- Mueve esto al final -->
+    @stack('scripts')
     @livewireScripts
 </body>
 

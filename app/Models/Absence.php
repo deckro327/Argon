@@ -16,4 +16,9 @@ class Absence extends Model
     {
         return $this->HasMany(Report::class);
     }
+
+    public function Workers(): BelongsTo
+    {
+        return $this->BelongsTo(Worker::class);
+    }
 }

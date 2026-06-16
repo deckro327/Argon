@@ -8,13 +8,13 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Student</span>
+                        <span class="card-title">{{ __('Create') }} Worker</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('students.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/workers') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
-                            @include('student.form')
+                            @include('worker.form')
 
                         </form>
                     </div>

@@ -48,7 +48,7 @@
 
                                             <td>{{ $carrer->name }}</td>
                                             <td>{{ $carrer->code }}</td>
-                                            <td>{{ $carrer->student->name  }}</td>
+                                            {{-- <td>{{ $carrer->workers->name  }}</td> --}}
 
                                             <td>
                                                 <form action="{{ route('carrers.destroy', $carrer->id) }}" method="POST">

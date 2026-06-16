@@ -10,8 +10,10 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->datetime('punctuality');
-            $table->datetime('departure');
+            $table->foreignId('worker_id')->nullable()->constrained('students')->nullOnDelete();
+            $table->string('status')->nullable();
+            $table->datetime('punctuality')->nullable();
+            $table->datetime('departure')->nullable();
             $table->timestamps();
         });
     }

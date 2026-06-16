@@ -16,10 +16,7 @@ return new class extends Migration
             $table->string('title', 30)->unique();
             $table->string('content', 300);
             $table->string('slug', 30)->unique();
-
-            //relacion con la tabla de etiquetas
-            $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

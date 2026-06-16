@@ -8,14 +8,14 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Student</span>
+                        <span class="card-title">{{ __('Update') }} Worker</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('students.update', $student->id) }}"  role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
+                        <form method="POST" action="{{ route('workers.update', $worker->id) }}"  role="form" enctype="multipart/form-data">
+                            @method('PUT')
                             @csrf
 
-                            @include('student.form')
+                            @include('worker.form')
 
                         </form>
                     </div>

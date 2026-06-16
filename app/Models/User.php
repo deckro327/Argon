@@ -15,6 +15,7 @@ use App\Models\Report;
 use App\Models\Certificateaofabsence;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 
 class User extends Authenticatable
@@ -56,9 +57,11 @@ class User extends Authenticatable
     public function image(): string
     {
         if ($this->profile_image) {
-            return asset('storage/' . $this->profile_image);
+            return Str::startsWith($this->profile_image, 'img/')
+                ? asset($this->profile_image)
+                : asset('storage/' . $this->profile_image);
         } else {
-            return asset('img/theme/user.png');
+            return asset('img/theme/User.jpg');
         }
     }
 
@@ -91,6 +94,11 @@ class User extends Authenticatable
     public function report(): BelongsTo
     {
         return $this->belongsTo(Report::class);
+    }
+
+    public function Workers(): HasMany
+    {
+        return $this->hasMany(Worker::class);
     }
 
 
