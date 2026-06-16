@@ -11,8 +11,7 @@ return new class extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('worker_id')->nullable()->constrained('students')->nullOnDelete();
-            $table->string('status')->nullable();
-            $table->datetime('punctuality')->nullable();
+            $table->enum('status',['presente','ausente','justificado'])->default('ausente');
             $table->datetime('departure')->nullable();
             $table->timestamps();
         });

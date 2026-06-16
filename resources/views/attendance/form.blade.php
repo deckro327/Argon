@@ -47,8 +47,8 @@
             </div>
             <input type="hidden" name="worker_id" id="worker_id" value="{{ $selectedWorkerId }}">
             <datalist id="workers-list">
-                @foreach ($workers as $worker)
-                    <option value="{{ $worker->id }}" label="{{ $worker->id }} - {{ $worker->name }} {{ $worker->surname }}"></option>
+                @foreach($workers as $worker)
+                    <option value="{{ $worker->id }}">{{ $worker->id }} - {{ $worker->name }} {{ $worker->surname }}</option>
                 @endforeach
             </datalist>
             <small class="form-text text-muted">Busca por ID y selecciona el worker correcto.</small>
@@ -323,18 +323,25 @@ document.addEventListener('DOMContentLoaded', function () {
         meridiemField.disabled = false;
     };
 
+    const clearTimeControls = (hiddenField, hourField, minuteField, meridiemField) => {
+        hiddenField.value = '';
+        hourField.disabled = true;
+        minuteField.disabled = true;
+        meridiemField.disabled = true;
+    };
+
     const syncAttendanceTimes = () => {
         const worker = workerLookup.value ? getWorkerBySearchValue(workerLookup.value) || getWorkerById(workerIdField.value) : null;
+
+        if (statusField.value === 'ausente') {
+            clearTimeControls(punctualityField, punctualityHourField, punctualityMinuteField, punctualityMeridiemField);
+            clearTimeControls(departureField, departureHourField, departureMinuteField, departureMeridiemField);
+            return;
+        }
 
         if (statusField.value === 'justificado') {
             setTimeFields(punctualityField, punctualityHourField, punctualityMinuteField, punctualityMeridiemField, worker?.area_entry_time || '00:00');
             setTimeFields(departureField, departureHourField, departureMinuteField, departureMeridiemField, worker?.area_exit_time || '00:00');
-            return;
-        }
-
-        if (statusField.value === 'ausente') {
-            setTimeFields(punctualityField, punctualityHourField, punctualityMinuteField, punctualityMeridiemField, null);
-            setTimeFields(departureField, departureHourField, departureMinuteField, departureMeridiemField, null);
             return;
         }
 

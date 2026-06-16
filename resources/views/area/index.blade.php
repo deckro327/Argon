@@ -21,6 +21,7 @@
 					</div>
 				@endif
 
+
 				<div class="table-responsive">
 					<table class="table align-items-center table-flush">
 						<thead class="thead-light">
@@ -35,7 +36,7 @@
 						<tbody>
 							@foreach ($areas as $area)
 								<tr>
-									<td><span class="badge badge-pill badge-primary">{{ $area->id }}</span></td>
+								<td><span class="badge badge-pill badge-primary">{{ $area->id }}</span></td>
 									<td>{{ $area->name }}</td>
 									<td>{{ $area->description }}</td>
 									<td>{{ $area->created_at }}</td>

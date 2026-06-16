@@ -28,10 +28,6 @@
     <!-- Divider -->
     <hr class="my-3">
     <!-- Heading -->
-    <h6 class="navbar-heading text-muted">Panel de Administración</h6>
-    <!-- Divider -->
-    <hr class="my-3">
-    <!-- Heading -->
     <h6 class="navbar-heading text-muted">Otras Acciones</h6>
     <!-- Navigation -->
     <ul class="navbar-nav mb-md-3">

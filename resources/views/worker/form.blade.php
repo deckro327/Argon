@@ -1,42 +1,38 @@
-<div class="row padding-1 p-1">
-    <div class="col-md-12">
+<div class="mb-3 flex flex-col gap-4">
+    <label for="name" class="form-label text-white">Nombre</label>
+    <input name="name" id="name" class="form-label-control text-dark w-96" value="{{ old('name', $worker?->name) }}" type="text">
+    @error('name')
+        <div class="text-danger text-red-400">{{ $message }}</div>
+    @enderror
 
-        <div class="form-group mb-2 mb20">
-            <label for="name" class="form-label">{{ __('Name') }}</label>
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $worker?->name) }}" id="name" placeholder="Name">
-            {!! $errors->first('name', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="surname" class="form-label">{{ __('Surname') }}</label>
-            <input type="text" name="surname" class="form-control @error('surname') is-invalid @enderror" value="{{ old('surname', $worker?->surname) }}" id="surname" placeholder="Surname">
-            {!! $errors->first('surname', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="email" class="form-label">{{ __('Email') }}</label>
-            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $worker?->email) }}" id="email" placeholder="Email">
-            {!! $errors->first('email', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="age" class="form-label">{{ __('Age') }}</label>
-            <input type="number" name="age" class="form-control @error('age') is-invalid @enderror" value="{{ old('age', $worker?->age) }}" id="age" placeholder="Age">
-            {!! $errors->first('age', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
+    <label for="surname" class="form-label text-white">Apellido</label>
+    <input name="surname" id="surname" class="form-label-control text-dark w-96" value="{{ old('surname', $worker?->surname) }}" type="text">
+    @error('surname')
+        <div class="text-danger text-red-400">{{ $message }}</div>
+    @enderror
 
-        <div class="form-group mb-2 mb20">
-            <label for="area_id" class="form-label">{{ __('Area') }}</label>
-            <select name="area_id" id="area_id" class="form-control @error('area_id') is-invalid @enderror">
-                <option value="">{{ __('Select Area') }}</option>
-                @foreach ($areas as $area)
-                    <option value="{{ $area->id }}" {{ old('area_id', $worker?->area_id) == $area->id ? 'selected' : '' }}>
-                        {{ $area->name }}
-                    </option>
-                @endforeach
-            </select>
-            {!! $errors->first('area_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
+    <label for="email" class="form-label text-white">Correo</label>
+    <input name="email" id="email" class="form-label-control text-dark w-96" value="{{ old('email', $worker?->email) }}" type="email">
+    @error('email')
+        <div class="text-danger text-red-400">{{ $message }}</div>
+    @enderror
 
-    </div>
-    <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-    </div>
+    <label for="age" class="form-label text-white">Edad</label>
+    <input name="age" id="age" class="form-label-control text-dark w-96" value="{{ old('age', $worker?->age) }}" type="number">
+    @error('age')
+        <div class="text-danger text-red-400">{{ $message }}</div>
+    @enderror
+
+    <label for="area_id" class="form-label text-white">Area</label>
+    <select name="area_id" id="area_id" class="form-control text-dark w-96">
+        <option value="">Seleccionar area</option>
+        @foreach($areas as $area)
+            <option value="{{ $area->id }}" @selected(old('area_id', $worker?->area_id) == $area->id)>{{ $area->name }}</option>
+        @endforeach
+    </select>
+    @error('area_id')
+        <div class="text-danger text-red-400">{{ $message }}</div>
+    @enderror
+
+    <button type="submit" class="btn btn-primary text-white bg-red-600 transition duration-300 p-2 rounded-lg">Guardar</button>
 </div>

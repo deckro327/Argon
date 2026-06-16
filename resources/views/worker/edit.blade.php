@@ -1,26 +1,13 @@
-@extends('layouts.panel')
-@section('title', 'Animal/Create')
+@extends('layouts.app')
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="">
-            <div class="col-md-12">
+    <div class="card flex flex-col justify-center items-center">
+        <form action="{{ route('workers.update', $worker->id) }}" method="POST" class="ml-40 mt-10">
+            @method('PUT')
+            <h1 class="text-white">Editar Worker</h1>
+            @csrf
 
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Worker</span>
-                    </div>
-                    <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('workers.update', $worker->id) }}"  role="form" enctype="multipart/form-data">
-                            @method('PUT')
-                            @csrf
-
-                            @include('worker.form')
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            @include('worker.form')
+        </form>
+    </div>
 @endsection

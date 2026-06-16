@@ -10,6 +10,12 @@ use Illuminate\Support\Carbon;
 
 class AttendanceController extends Controller
 {
+    private const STATUSES = [
+        'presente' => 'Presente',
+        'justificado' => 'Justificado',
+        'ausente' => 'Ausente',
+    ];
+
     public function index(Request $request)
     {
         $attendances = Attendance::with('worker.area')->latest()->paginate(10);
@@ -18,20 +24,10 @@ class AttendanceController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $attendances->perPage());
     }
 
-        public function create (Request $request)
-        {
-        $attendance = new Attendance();
-            $workers = Worker::with('area')->get()->sortBy('id');
-        $statuses = [
-                'presente' => 'Presente',
-            'justificado' => 'Justificado',
-            'ausente' => 'Ausente',
-        ];
-        $workerAttendanceDefaults = $this->buildWorkerAttendanceDefaults($workers);
-            $showAttendanceTimes = true;
-
-        return view('attendance.create', compact('attendance', 'workers', 'statuses', 'workerAttendanceDefaults', 'showAttendanceTimes'));
-        }
+    public function create(Request $request)
+    {
+        return view('attendance.create', $this->attendanceFormData(new Attendance()));
+    }
 
     public function store(AttendanceRequest $request)
     {
@@ -49,18 +45,9 @@ class AttendanceController extends Controller
         return view('attendance.show', compact('attendance'));
     }
 
-    public function edit (Attendance $attendance)
+    public function edit(Attendance $attendance)
     {
-        $workers = Worker::with('area')->get()->sortBy('id');
-        $statuses = [
-            'presente' => 'Presente',
-            'justificado' => 'Justificado',
-            'ausente' => 'Ausente',
-        ];
-        $workerAttendanceDefaults = $this->buildWorkerAttendanceDefaults($workers);
-        $showAttendanceTimes = true;
-
-        return view('attendance.edit', compact('attendance', 'workers', 'statuses', 'workerAttendanceDefaults', 'showAttendanceTimes'));
+        return view('attendance.edit', $this->attendanceFormData($attendance));
     }
 
     public function update(AttendanceRequest $request, Attendance $attendance)
@@ -82,37 +69,30 @@ class AttendanceController extends Controller
     private function buildWorkerAttendanceDefaults($workers): array
     {
         return $workers->mapWithKeys(function ($worker) {
+            $area = $worker->area;
+
             return [
                 $worker->id => [
                     'label' => $worker->id.' - '.$worker->name.' '.$worker->surname,
-                    'area_name' => $worker->area?->name,
-                    'area_entry_time' => $worker->area?->punctuality
-                        ? Carbon::parse($worker->area?->punctuality)->format('H:i')
-                        : null,
-                    'area_exit_time' => $worker->area?->departure
-                        ? Carbon::parse($worker->area?->departure)->format('H:i')
-                        : null,
-                    'area_punctuality' => $worker->area?->punctuality
-                        ? Carbon::parse($worker->area?->punctuality)->format('h:i A')
-                        : null,
-                    'area_departure' => $worker->area?->departure
-                        ? Carbon::parse($worker->area?->departure)->format('h:i A')
-                        : null,
-                    'area_entry_display' => $worker->area?->punctuality
-                        ? Carbon::parse($worker->area?->punctuality)->format('h:i A')
-                        : null,
-                    'area_exit_display' => $worker->area?->departure
-                        ? Carbon::parse($worker->area?->departure)->format('h:i A')
-                        : null,
-                    'punctuality' => $worker->area?->punctuality
-                        ? Carbon::parse($worker->area?->punctuality)->format('Y-m-d\TH:i')
-                        : null,
-                    'departure' => $worker->area?->departure
-                        ? Carbon::parse($worker->area?->departure)->format('Y-m-d\TH:i')
-                        : null,
+                    'area_name' => $area?->name,
+                    'area_entry_time' => $area?->punctuality ? Carbon::parse($area->punctuality)->format('H:i') : null,
+                    'area_exit_time' => $area?->departure ? Carbon::parse($area->departure)->format('H:i') : null,
                 ],
             ];
         })->toArray();
+    }
+
+    private function attendanceFormData(Attendance $attendance): array
+    {
+        $workers = Worker::with('area')->get()->sortBy('id');
+
+        return [
+            'attendance' => $attendance,
+            'workers' => $workers,
+            'statuses' => self::STATUSES,
+            'workerAttendanceDefaults' => $this->buildWorkerAttendanceDefaults($workers),
+            'showAttendanceTimes' => true,
+        ];
     }
 
     private function applyAttendanceTimeRules(array $data): array
@@ -128,8 +108,8 @@ class AttendanceController extends Controller
         }
 
         if ($status === 'ausente') {
-            $data['punctuality'] = null;
-            $data['departure'] = null;
+            $data['punctuality'] = $this->timeToDateTime('00:00');
+            $data['departure'] = $this->timeToDateTime('00:00');
 
             return $data;
         }
@@ -144,13 +124,13 @@ class AttendanceController extends Controller
         return $data;
     }
 
-//     private function timeToDateTime(?string $time): ?Carbon
-//     {
-//         if (!$time) {
-//             return null;
-//         }
+    private function timeToDateTime(?string $time): ?Carbon
+    {
+        if (!$time) {
+            return null;
+        }
 
-//         return Carbon::today()->setTimeFromTimeString($time . ':00');
-//     }
+        return Carbon::today()->setTimeFromTimeString($time);
+    }
  }
 

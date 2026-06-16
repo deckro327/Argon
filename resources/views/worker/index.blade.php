@@ -5,71 +5,57 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-
-                            <span id="card_title">
-                                Workers
-                            </span>
-
-                            <div class="float-right">
-                                <a href="{{ route('workers.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                                    Create New
-                                </a>
-                            </div>
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="mb-0">Workers</h3>
+                            <a href="{{ route('workers.create') }}" class="btn btn-primary btn-sm">Crear Worker</a>
                         </div>
                     </div>
-                    @if ($message = Session::get('success'))
+
+                    @if(session('success'))
                         <div class="alert alert-success m-4">
-                            <p>{{ $message }}</p>
+                            <p class="mb-0">{{ session('success') }}</p>
                         </div>
                     @endif
 
-                    <div class="card-body bg-white">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Edad</th>
+                                    <th scope="col">Area</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($workers as $worker)
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Surname</th>
-                                        <th>Email</th>
-                                        <th>Age</th>
-                                        <th>Area</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($workers as $worker)
-                                        <tr>
-                                            <td>{{ $worker->id }}</td>
-                                            <td>{{ $worker->name }}</td>
-                                            <td>{{ $worker->surname }}</td>
-                                            <td>{{ $worker->email }}</td>
-                                            <td>{{ $worker->age }}</td>
-                                            <td>{{ $worker->area?->name }}</td>
-
-                                            <td>
-                                                <form action="{{ route('workers.destroy', $worker->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('workers.show', $worker->id) }}">
-                                                        <i class="fa fa-fw fa-eye"></i> Show
-                                                    </a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('workers.edit', $worker->id) }}">
-                                                        <i class="fa fa-fw fa-edit"></i> Edit
-                                                    </a>
+                                        <td>{{ $worker->id }}</td>
+                                        <td>{{ $worker->name }}</td>
+                                        <td>{{ $worker->surname }}</td>
+                                        <td>{{ $worker->email }}</td>
+                                        <td>{{ $worker->age }}</td>
+                                        <td>{{ $worker->area?->name }}</td>
+                                        <td style="white-space: nowrap;">
+                                            <div style="display: flex; align-items: center; gap: 5px; flex-wrap: nowrap;">
+                                                <a class="btn btn-primary btn-sm" href="{{ route('workers.show', $worker->id) }}">Ver</a>
+                                                <a class="btn btn-info btn-sm" href="{{ route('workers.edit', $worker->id) }}">Editar</a>
+                                                <form action="{{ route('workers.destroy', $worker->id) }}" method="POST" style="display: inline-block; margin: 0;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-fw fa-trash"></i> Delete
-                                                    </button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este worker?')">Eliminar</button>
                                                 </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

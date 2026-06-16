@@ -27,8 +27,12 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label">Worker</label>
-                                <p>{{ $attendance->worker_id }} - {{ $attendance->worker?->name }} {{ $attendance->worker?->surname }}</p>
+                                <div >
+                                    <label class="form-control-label">Id</label>
+                                <p>{{ $attendance->worker_id }}
+                                </div>
+                                <label class="form-control-label">Trabajador</label>
+                                <p>{{ $attendance->worker?->name }} {{ $attendance->worker?->surname }}</p>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -57,7 +61,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label">Status</label>
+                                <label class="form-control-label">Estado</label>
                                 <p>{{ $attendance->status_label }}</p>
                             </div>
                         </div>
@@ -72,13 +76,13 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label">Punctuality</label>
+                                <label class="form-control-label">Entrada</label>
                                 <p>{{ $attendancePunctuality ? $attendancePunctuality->format('h:i') : '-' }} {{ $attendancePunctuality ? $attendancePunctuality->format('A') : '' }}</p>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label">Departure</label>
+                                <label class="form-control-label">Salida</label>
                                 <p>{{ $attendanceDeparture ? $attendanceDeparture->format('h:i') : '-' }} {{ $attendanceDeparture ? $attendanceDeparture->format('A') : '' }}</p>
                             </div>
                         </div>
