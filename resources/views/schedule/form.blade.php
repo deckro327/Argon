@@ -20,6 +20,9 @@
     </div>
 
     <div class="col-12">
+        @if ($schedule->exists)
+            @method('PUT')
+        @endif
         <button type="submit" class="btn btn-primary">{{ $schedule->exists ? 'Actualizar' : 'Guardar' }}</button>
         <a href="{{ route('schedules.index') }}" class="btn btn-secondary">Volver</a>
     </div>

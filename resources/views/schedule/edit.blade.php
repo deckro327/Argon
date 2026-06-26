@@ -10,8 +10,7 @@
                         <span class="card-title">Editar horario</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('schedules.update', $schedule->id) }}">
-                            @method('PUT')
+                        <form method="POST" action="{{ route('schedules.update', $schedule) }}">
                             @csrf
                             @include('schedule.form')
                         </form>
