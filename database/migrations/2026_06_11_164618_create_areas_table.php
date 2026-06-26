@@ -18,8 +18,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        if (! Schema::hasColumn('students', 'area_id')) {
-            Schema::table('students', function (Blueprint $table) {
+        if (! Schema::hasColumn('workers', 'area_id')) {
+            Schema::table('workers', function (Blueprint $table) {
                 $table->foreignId('area_id')->nullable()->after('age')->constrained('areas')->nullOnDelete();
             });
         }

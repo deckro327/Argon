@@ -16,10 +16,6 @@ return new class extends Migration
                 $table->bigIncrements('id');
                 $table->string('name');
                 $table->string('code');
-                $table->integer('students_id')->unsigned();
-                $table->foreign('students_id')->references('id')->on('students')
-                    ->onDelete('cascade')->onUpdate('cascade');
-                $table->timestamps();
             });
         }
     }
