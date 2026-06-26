@@ -7,45 +7,43 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        return view('schedule.index');
+        $schedules = Schedule::orderBy('date', 'desc')->paginate(15);
+        return view('schedule.index', compact('schedules'));
     }
 
-    public function create (ScheduleController $request)
+    public function create()
     {
-    $attendance = new Schedule();
-    return view('schedule.create', compact('schedule'));
+        $schedule = new Schedule();
+        return view('schedule.create', compact('schedule'));
     }
 
     public function store(ScheduleRequest $request)
     {
-    Schedule::create($request->validated());
-    return redirect('/schedule')->with('success', 'horario confirmado');
+        Schedule::create($request->validated());
+        return redirect()->route('schedules.index')->with('success', 'Horario confirmado');
     }
 
-    public function show (Schedule $schedule)
+    public function show(Schedule $schedule)
     {
         return view('schedule.show', compact('schedule'));
     }
-//? f en el chat
-    public function edit (Schedule $schedule)
+
+    public function edit(Schedule $schedule)
     {
-        $attendance = Schedule::findOrFail($schedule);
         return view('schedule.edit', compact('schedule'));
     }
 
-    public function update(ScheduleRequest $request, string $id)
+    public function update(ScheduleRequest $request, Schedule $schedule)
     {
-        $schedule = Schedule::findOrFail($id);
         $schedule->update($request->validated());
-        return redirect('schedule.index')->with('success', 'horario acutalizado');
+        return redirect()->route('schedules.index')->with('success', 'Horario actualizado');
     }
 
-    public function destroy(string $id)
+    public function destroy(Schedule $schedule)
     {
-        $schedule = Schedule::findOrFail($id);
         $schedule->delete();
-        return redirect('schedule.index')->with('success','horario eliminado');
+        return redirect()->route('schedules.index')->with('success', 'Horario eliminado');
     }
 }

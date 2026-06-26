@@ -11,10 +11,15 @@ class Schedule extends Model
 {
     protected $primaryKey = 'id';
     protected $fillable = [
-        'quantity',
         'date',
-        'hour',
+        'time',
     ];
+
+    protected $casts = [
+        'date' => 'date',
+        'time' => 'datetime:H:i',
+    ];
+
     public function user(): HasMany
     {
         return $this->hasMany(User::class);

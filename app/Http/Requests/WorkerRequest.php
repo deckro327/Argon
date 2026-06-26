@@ -23,7 +23,7 @@ class WorkerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', Rule::unique('students')->ignore($this->worker)],
+            'name' => ['required', 'string', Rule::unique('workers')->ignore($this->worker)],
             'surname' => ['required', 'string', 'max:100', 'min:2'],
             'email' => ['required', 'string', 'email', 'max:100'],
             'age' => ['required', 'integer'],

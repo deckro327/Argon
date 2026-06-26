@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
  class Worker extends Model
 {
-    protected $table = 'students';
+    protected $table = 'workers';
 
     protected $fillable = ['name', 'surname', 'email', 'age', 'area_id'];
 

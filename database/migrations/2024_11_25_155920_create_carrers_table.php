@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carrers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('code');
-            $table->integer('students_id')->unsigned();
-            $table->foreign('students_id')->references('id')->on('students')
-            ->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
-        });
+        if (! Schema::hasTable('carrers')) {
+            Schema::create('carrers', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name');
+                $table->string('code');
+                $table->integer('students_id')->unsigned();
+                $table->foreign('students_id')->references('id')->on('students')
+                    ->onDelete('cascade')->onUpdate('cascade');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

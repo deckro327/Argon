@@ -72,19 +72,19 @@ Route::middleware('auth')->group(function () {
 //? absences
 Route::middleware('auth')->group(function () {
 
-Route:: get('/absences', [AbsenceController::class, 'index'])->name('absence.index');
+Route:: get('/absences', [AbsenceController::class,'index'])->name('absence.index');
 
-Route::get('/absences/create', [AbsenceController :: class,'create'])->name('absence.create');
+Route::get('/absences/create', [AbsenceController::class,'create'])->name('absence.create');
 
-Route::post('/absences', [AbsenceController :: class, 'store'])->name('absence.store');
+Route::post('/absences', [AbsenceController::class,'store'])->name('absence.store');
 
-Route::get ('/absences/{absence}', [AbsenceController :: class, 'show'])->name('absence.show');
+Route::get ('/absences/{absence}', [AbsenceController::class,'show'])->name('absence.show');
 
-Route::get('/absences/{absence}/edit', [AbsenceController :: class, 'edit'])->name('absence.edit');
+Route::get('/absences/{absence}/edit', [AbsenceController::class,'edit'])->name('absence.edit');
 
-Route :: put('/absences/{absence}', [AbsenceController :: class, 'update'])->name('absence.update');
+Route :: put('/absences/{absence}', [AbsenceController::class, 'update'])->name('absence.update');
 
-Route :: delete('/absences/{absence}',[AbsenceController :: class, 'destroy'])->name('absence.destroy');
+Route :: delete('/absences/{absence}',[AbsenceController::class,'destroy'])->name('absence.destroy');
 });
 
 //? attendances
@@ -93,18 +93,18 @@ Route::middleware('auth')->group(function () {
 
 Route:: get('/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
 
-Route::get('/attendances/create', [AttendanceController :: class,'create'])->name('attendances.create');
+Route::get('/attendances/create', [AttendanceController::class,'create'])->name('attendances.create');
 
-Route::post('/attendances', [AttendanceController :: class, 'store'])->name('attendances.store');
+Route::post('/attendances', [AttendanceController::class,'store'])->name('attendances.store');
 
-Route::get ('/attendances/{attendance}', [AttendanceController :: class, 'show'])->name('attendances.show');
-    Route::get('/attendances/{attendance}/delete', [AttendanceController::class, 'delete'])->name('attendances.delete');
+Route::get ('/attendances/{attendance}', [AttendanceController::class, 'show'])->name('attendances.show');
+    Route::get('/attendances/{attendance}/delete', [AttendanceController::class,'delete'])->name('attendances.delete');
 
-Route::get('/attendances/{attendance}/edit', [AttendanceController :: class, 'edit'])->name('attendances.edit');
+Route::get('/attendances/{attendance}/edit', [AttendanceController::class,'edit'])->name('attendances.edit');
 
-Route :: put('/attendances/{attendance}', [AttendanceController :: class, 'update'])->name('attendances.update');
+Route :: put('/attendances/{attendance}', [AttendanceController::class, 'update'])->name('attendances.update');
 
-Route :: delete('/attendances/{attendance}',[AttendanceController :: class, 'destroy'])->name('attendances.destroy');
+Route :: delete('/attendances/{attendance}',[AttendanceController::class, 'destroy'])->name('attendances.destroy');
 });
 
 //?areas
@@ -113,95 +113,104 @@ Route::middleware('auth')->group(function () {
 
 Route:: get('/areas', [AreaController::class, 'index'])->name('areas.index');
 
-Route::get('/areas/create', [AreaController :: class,'create'])->name('areas.create');
+Route::get('/areas/create', [AreaController::class,'create'])->name('areas.create');
 
-Route::post('/areas', [AreaController :: class, 'store'])->name('areas.store');
+Route::post('/areas', [AreaController::class,'store'])->name('areas.store');
 
-Route::get ('/areas/{area}', [AreaController :: class, 'show'])->name('areas.show');
+Route::get ('/areas/{area}', [AreaController::class, 'show'])->name('areas.show');
     Route::get('/areas/{area}/delete', [AreaController::class, 'delete'])->name('areas.delete');
 
-Route::get('/areas/{area}/edit', [AreaController :: class, 'edit'])->name('areas.edit');
+Route::get('/areas/{area}/edit', [AreaController::class, 'edit'])->name('areas.edit');
 
-Route :: put('/areas/{area}', [AreaController :: class, 'update'])->name('areas.update');
+Route :: put('/areas/{area}', [AreaController::class, 'update'])->name('areas.update');
 
-Route :: delete('/areas/{area}',[AreaController :: class, 'destroy'])->name('areas.destroy');
+Route :: delete('/areas/{area}',[AreaController::class, 'destroy'])->name('areas.destroy');
 });
 
 //? schedules
 
 Route::middleware('auth')->group(function () {
 
-Route:: get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+    // Backward compatibility: singular schedule routes
+    Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+    Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('schedule.create');
+    Route::post('/schedule', [ScheduleController::class, 'store'])->name('schedule.store');
+    Route::get('/schedule/{schedule}', [ScheduleController::class, 'show'])->name('schedule.show');
+    Route::get('/schedule/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
+    Route::put('/schedule/{schedule}', [ScheduleController::class, 'update'])->name('schedule.update');
+    Route::delete('/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
 
-Route::get('/schedules/create', [ScheduleController :: class,'create'])->name('schedules.create');
+    Route::get('/schedules', [ScheduleController::class,'index'])->name('schedules.index');
 
-Route::post('/schedules', [ScheduleController :: class, 'store'])->name('schedules.store');
+    Route::get('/schedules/create', [ScheduleController::class,'create'])->name('schedules.create');
 
-Route::get ('/schedules/{schedule}', [ScheduleController :: class, 'show'])->name('schedules.show');
+    Route::post('/schedules', [ScheduleController::class,'store'])->name('schedules.store');
 
-Route::get('/schedules/{schedule}/edit', [ScheduleController :: class, 'edit'])->name('schedules.edit');
+    Route::get('/schedules/{schedule}', [ScheduleController::class, 'show'])->name('schedules.show');
 
-Route :: put('/schedules/{schedule}', [ScheduleController :: class, 'update'])->name('schedules.update');
+    Route::get('/schedules/{schedule}/edit', [ScheduleController::class,'edit'])->name('schedules.edit');
 
-Route :: delete('/schedules/{schedule}',[ScheduleController :: class, 'destroy'])->name('schedules.destroy');
+    Route::put('/schedules/{schedule}', [ScheduleController::class,'update'])->name('schedules.update');
+
+    Route::delete('/schedules/{schedule}',[ScheduleController::class, 'destroy'])->name('schedules.destroy');
 });
 
 //?certificateaofabsences
 
 Route::middleware('auth')->group(function () {
 
-Route:: get('/certificateaofabsences', [CertificateaofabsenceController::class, 'index'])->name('certificateaofabsences.index');
+Route:: get('/certificateaofabsences', [CertificateaofabsenceController::class,'index'])->name('certificateaofabsences.index');
 
-Route::get('/certificateaofabsences/create', [CertificateaofabsenceController :: class,'create'])->name('certificateaofabsences.create');
+Route::get('/certificateaofabsences/create', [CertificateaofabsenceController::class,'create'])->name('certificateaofabsences.create');
 
-Route::post('/certificateaofabsences', [CertificateaofabsenceController :: class, 'store'])->name('certificateaofabsences.store');
+Route::post('/certificateaofabsences', [CertificateaofabsenceController ::class,'store'])->name('certificateaofabsences.store');
 
-Route::get ('/certificateaofabsences/{certificateaofabsence}', [CertificateaofabsenceController :: class, 'show'])->name('certificateaofabsences.show');
+Route::get ('/certificateaofabsences/{certificateaofabsence}', [CertificateaofabsenceController::class,'show'])->name('certificateaofabsences.show');
 
-Route::get('/certificateaofabsences/{certificateaofabsence}/edit', [CertificateaofabsenceController :: class, 'edit'])->name('certificateaofabsences.edit');
+Route::get('/certificateaofabsences/{certificateaofabsence}/edit', [CertificateaofabsenceController::class,'edit'])->name('certificateaofabsences.edit');
 
-Route :: put('/certificateaofabsences/{certificateaofabsence}', [CertificateaofabsenceController :: class, 'update'])->name('certificateaofabsences.update');
+Route :: put('/certificateaofabsences/{certificateaofabsence}', [CertificateaofabsenceController::class,'update'])->name('certificateaofabsences.update');
 
-Route :: delete('/certificateaofabsences/{certificateaofabsence}',[CertificateaofabsenceController :: class, 'destroy'])->name('certificateaofabsences.destroy');
+Route :: delete('/certificateaofabsences/{certificateaofabsence}',[CertificateaofabsenceController::class,'destroy'])->name('certificateaofabsences.destroy');
 });
 
 //?reports
 
 Route::middleware('auth')->group(function () {
 
-Route:: get('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route:: get('/reports', [ReportController::class,'index'])->name('reports.index');
 
-Route::get('/reports/create', [ReportController :: class,'create'])->name('reports.create');
+Route::get('/reports/create', [ReportController::class,'create'])->name('reports.create');
 
-Route::post('/reports', [ReportController :: class, 'store'])->name('reports.store');
+Route::post('/reports', [ReportController ::class,'store'])->name('reports.store');
 
-Route::get ('/reports/{report}', [ReportController :: class, 'show'])->name('reports.show');
+Route::get ('/reports/{report}', [ReportController::class,'show'])->name('reports.show');
 
-Route::get('/reports/{report}/edit', [ReportController :: class, 'edit'])->name('reports.edit');
+Route::get('/reports/{report}/edit', [ReportController::class,'edit'])->name('reports.edit');
 
-Route :: put('/reports/{report}', [ReportController :: class, 'update'])->name('reports.update');
+Route :: put('/reports/{report}', [ReportController::class,'update'])->name('reports.update');
 
-Route :: delete('/reports/{report}',[ReportController :: class, 'destroy'])->name('reports.destroy');
+Route :: delete('/reports/{report}',[ReportController::class,'destroy'])->name('reports.destroy');
 });
 
 
 Route::middleware('auth')->group(function () {
 
-Route::get('/workers', [WorkerController::class, 'index'])->name('workers.index');
+Route::get('/workers',[WorkerController::class,'index'])->name('workers.index');
 
-Route::get('/workers/create', [WorkerController::class, 'create'])->name('workers.create');
+Route::get('/workers/create',[WorkerController::class,'create'])->name('workers.create');
 
-Route::post('/workers', [WorkerController :: class, 'store'])->name('workers.store');
+Route::post('/workers',[WorkerController:: class,'store'])->name('workers.store');
 
-Route::get('/workers/{worker}', [WorkerController::class, 'show'])->name('workers.show');
+Route::get('/workers/{worker}',[WorkerController::class,'show'])->name('workers.show');
 
-Route::get('/workers/{worker}/edit', [WorkerController::class, 'edit'])->name('workers.edit');
+Route::get('/workers/{worker}/edit',[WorkerController::class,'edit'])->name('workers.edit');
 
-Route::get('/workers/{worker}/delete', [WorkerController::class, 'delete'])->name('workers.delete');
+Route::get('/workers/{worker}/delete',[WorkerController::class, 'delete'])->name('workers.delete');
 
-Route::put('/workers/{worker}', [WorkerController::class, 'update'])->name('workers.update');
+Route::put('/workers/{worker}',[WorkerController::class,'update'])->name('workers.update');
 
-Route::delete('/workers/{worker}', [WorkerController::class, 'destroy'])->name('workers.destroy');
+Route::delete('/workers/{worker}',[WorkerController::class,'destroy'])->name('workers.destroy');
 });
 //?
 

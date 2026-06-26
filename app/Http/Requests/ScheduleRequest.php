@@ -23,7 +23,8 @@ class ScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date,hour'=>['required|datetime', Rule::unique('schedules')->ignore($this->schedule)],
+            'date' => ['required', 'date'],
+            'time' => ['required', 'date_format:H:i'],
         ];
     }
 }
